@@ -58,5 +58,15 @@ namespace Ploeh.Samples.StatePattern
             Assert.Equal(Out1.Gamma, actual);
             Assert.Equal(new ConcreteStateA(), ctx.State);
         }
+
+        [Fact]
+        public void Request1BToB()
+        {
+            var in1 = In1.Beta;
+            var ctx = new Context(new ConcreteStateB());
+            var actual = ctx.Request1(in1);
+            Assert.Equal(Out1.Delta, actual);
+            Assert.Equal(new ConcreteStateB(), ctx.State);
+        }
     }
 }
