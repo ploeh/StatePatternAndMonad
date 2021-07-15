@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace Ploeh.Samples.StatePattern
 {
-    public sealed class StatePair<T>
+    public sealed class StatePair<TState, T>
     {
-        public StatePair(T value, State state)
+        public StatePair(T value, TState state)
         {
             Value = value;
             State = state;
         }
 
         public T Value { get; }
-        public State State { get; }
+        public TState State { get; }
 
         public override bool Equals(object obj)
         {
-            return obj is StatePair<T> result &&
-                   EqualityComparer<T>.Default.Equals(Value, result.Value) &&
-                   EqualityComparer<State>.Default.Equals(State, result.State);
+            return obj is StatePair<TState, T> pair &&
+                   EqualityComparer<T>.Default.Equals(Value, pair.Value) &&
+                   EqualityComparer<TState>.Default.Equals(State, pair.State);
         }
 
         public override int GetHashCode()

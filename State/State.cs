@@ -8,8 +8,8 @@
         }
 
         // Generalised methods
-        public abstract StatePair<Out1> Handle1(Context context, In1 in1);
+        public abstract StatePair<State, Out1> Handle1(Context context, In1 in1);
 
-        public abstract StatePair<Out2> Handle2(Context context, In2 in2);
+        public abstract StatePair<State, Out2> Handle2(Context context, In2 in2);
     }
 }
