@@ -13,7 +13,8 @@
 
         public override Out2 Handle2(Context context, In2 in2)
         {
-            throw new System.NotImplementedException();
+            context.State = new ConcreteStateB();
+            return Out2.Eta;
         }
 
         public override bool Equals(object obj)
