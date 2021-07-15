@@ -12,7 +12,7 @@ namespace Ploeh.Samples.StatePattern
 
         public override Out2 Handle2(Context context, In2 in2)
         {
-            throw new System.NotImplementedException();
+            return Out2.Theta;
         }
 
         public override bool Equals(object obj)
