@@ -50,7 +50,7 @@ namespace Ploeh.Samples.StatePattern
         }
 
         [Fact]
-        public void Request1BToA()
+        public void Request1BAlpha()
         {
             var in1 = In1.Alpha;
             var ctx = new Context(new ConcreteStateB());
@@ -60,13 +60,13 @@ namespace Ploeh.Samples.StatePattern
         }
 
         [Fact]
-        public void Request1BToB()
+        public void Request1BBeta()
         {
             var in1 = In1.Beta;
             var ctx = new Context(new ConcreteStateB());
             var actual = ctx.Request1(in1);
-            Assert.Equal(Out1.Delta, actual);
-            Assert.Equal(new ConcreteStateB(), ctx.State);
+            Assert.Equal(Out1.Gamma, actual);
+            Assert.Equal(new ConcreteStateA(), ctx.State);
         }
     }
 }

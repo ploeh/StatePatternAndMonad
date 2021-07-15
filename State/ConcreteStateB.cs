@@ -6,9 +6,6 @@ namespace Ploeh.Samples.StatePattern
     {
         public override Out1 Handle1(Context context, In1 in1)
         {
-            if (in1 != In1.Alpha)
-                return Out1.Delta;
-
             context.State = new ConcreteStateA();
             return Out1.Gamma;
         }
