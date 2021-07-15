@@ -14,7 +14,8 @@ namespace Ploeh.Samples.StatePattern
         {
             var in1 = In1.Alpha;
             var ctx = new Context(new ConcreteStateA());
-            ctx.Request1(in1);
+            var actual = ctx.Request1(in1);
+            Assert.Equal(Out1.Gamma, actual);
             Assert.Equal(new ConcreteStateB(), ctx.State);
         }
     }

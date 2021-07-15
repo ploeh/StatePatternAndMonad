@@ -5,7 +5,7 @@
         public override Out1 Handle1(Context context, In1 in1)
         {
             context.State = new ConcreteStateB();
-            return null;
+            return Out1.Gamma;
         }
 
         public override Out2 Handle2(Context context, In2 in2)
