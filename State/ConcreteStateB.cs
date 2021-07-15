@@ -4,15 +4,15 @@ namespace Ploeh.Samples.StatePattern
 {
     public class ConcreteStateB : State
     {
-        public override Out1 Handle1(Context context, In1 in1)
+        public override StatePair<Out1> Handle1(Context context, In1 in1)
         {
             context.State = new ConcreteStateA();
-            return Out1.Gamma;
+            return new StatePair<Out1>(Out1.Gamma, context.State);
         }
 
-        public override Out2 Handle2(Context context, In2 in2)
+        public override StatePair<Out2> Handle2(Context context, In2 in2)
         {
-            return Out2.Theta;
+            return new StatePair<Out2>(Out2.Theta, context.State);
         }
 
         public override bool Equals(object obj)

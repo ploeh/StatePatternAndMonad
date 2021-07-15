@@ -2,13 +2,14 @@
 {
     public abstract class State
     {
-        public virtual void Handle(Context context)
+        public virtual State Handle(Context context)
         {
+            return this;
         }
 
         // Generalised methods
-        public abstract Out1 Handle1(Context context, In1 in1);
+        public abstract StatePair<Out1> Handle1(Context context, In1 in1);
 
-        public abstract Out2 Handle2(Context context, In2 in2);
+        public abstract StatePair<Out2> Handle2(Context context, In2 in2);
     }
 }
