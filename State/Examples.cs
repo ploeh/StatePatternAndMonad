@@ -96,7 +96,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateA());
 
             var pairA = ctx.Request1(in1);
-            var pairB = ctx.Request1(in1);
+            var pairB = pairA.State.Request1(in1);
 
             Assert.Equal(Out1.Gamma, pairA.Value);
             Assert.Equal(Out1.Gamma, pairB.Value);
@@ -111,7 +111,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateA());
 
             var pairA = ctx.Request2(in2);
-            var pairB = ctx.Request1(in1);
+            var pairB = pairA.State.Request1(in1);
 
             Assert.Equal(Out2.Eta, pairA.Value);
             Assert.Equal(Out1.Gamma, pairB.Value);
