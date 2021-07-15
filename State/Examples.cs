@@ -16,7 +16,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateA());
             var actual = ctx.Request1(in1);
             Assert.Equal(Out1.Gamma, actual.Value);
-            Assert.Equal(new ConcreteStateB(), ctx.State);
+            Assert.Equal(new ConcreteStateB(), actual.State.State);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateA());
             var actual = ctx.Request1(in1);
             Assert.Equal(Out1.Delta, actual.Value);
-            Assert.Equal(new ConcreteStateA(), ctx.State);
+            Assert.Equal(new ConcreteStateA(), actual.State.State);
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateA());
             var actual = ctx.Request2(in2);
             Assert.Equal(Out2.Eta, actual.Value);
-            Assert.Equal(new ConcreteStateB(), ctx.State);
+            Assert.Equal(new ConcreteStateB(), actual.State.State);
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateA());
             var actual = ctx.Request2(in2);
             Assert.Equal(Out2.Eta, actual.Value);
-            Assert.Equal(new ConcreteStateA(), ctx.State);
+            Assert.Equal(new ConcreteStateA(), actual.State.State);
         }
 
         [Fact]
@@ -56,7 +56,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateB());
             var actual = ctx.Request1(in1);
             Assert.Equal(Out1.Gamma, actual.Value);
-            Assert.Equal(new ConcreteStateA(), ctx.State);
+            Assert.Equal(new ConcreteStateA(), actual.State.State);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateB());
             var actual = ctx.Request1(in1);
             Assert.Equal(Out1.Gamma, actual.Value);
-            Assert.Equal(new ConcreteStateA(), ctx.State);
+            Assert.Equal(new ConcreteStateA(), actual.State.State);
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateB());
             var actual = ctx.Request2(in2);
             Assert.Equal(Out2.Theta, actual.Value);
-            Assert.Equal(new ConcreteStateB(), ctx.State);
+            Assert.Equal(new ConcreteStateB(), actual.State.State);
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace Ploeh.Samples.StatePattern
             var ctx = new Context(new ConcreteStateB());
             var actual = ctx.Request2(in2);
             Assert.Equal(Out2.Theta, actual.Value);
-            Assert.Equal(new ConcreteStateB(), ctx.State);
+            Assert.Equal(new ConcreteStateB(), actual.State.State);
         }
 
         [Fact]
@@ -95,12 +95,12 @@ namespace Ploeh.Samples.StatePattern
             var in1 = In1.Alpha;
             var ctx = new Context(new ConcreteStateA());
 
-            var outA = ctx.Request1(in1);
-            var outB = ctx.Request1(in1);
+            var pairA = ctx.Request1(in1);
+            var pairB = ctx.Request1(in1);
 
-            Assert.Equal(Out1.Gamma, outA.Value);
-            Assert.Equal(Out1.Gamma, outB.Value);
-            Assert.Equal(new ConcreteStateA(), ctx.State);
+            Assert.Equal(Out1.Gamma, pairA.Value);
+            Assert.Equal(Out1.Gamma, pairB.Value);
+            Assert.Equal(new ConcreteStateA(), pairB.State.State);
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace Ploeh.Samples.StatePattern
 
             Assert.Equal(Out2.Eta, pairA.Value);
             Assert.Equal(Out1.Gamma, pairB.Value);
-            Assert.Equal(new ConcreteStateA(), ctx.State);
+            Assert.Equal(new ConcreteStateA(), pairB.State.State);
         }
     }
 }
