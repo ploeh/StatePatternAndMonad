@@ -13,7 +13,9 @@
 
         public override Out2 Handle2(Context context, In2 in2)
         {
-            context.State = new ConcreteStateB();
+            if (in2 == In2.Epsilon)
+                context.State = new ConcreteStateB();
+
             return Out2.Eta;
         }
 

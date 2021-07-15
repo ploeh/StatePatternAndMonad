@@ -38,5 +38,15 @@ namespace Ploeh.Samples.StatePattern
             Assert.Equal(Out2.Eta, actual);
             Assert.Equal(new ConcreteStateB(), ctx.State);
         }
+
+        [Fact]
+        public void Request2AToA()
+        {
+            var in2 = In2.Zeta;
+            var ctx = new Context(new ConcreteStateA());
+            var actual = ctx.Request2(in2);
+            Assert.Equal(Out2.Eta, actual);
+            Assert.Equal(new ConcreteStateA(), ctx.State);
+        }
     }
 }
