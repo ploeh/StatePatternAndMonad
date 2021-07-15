@@ -6,7 +6,8 @@ namespace Ploeh.Samples.StatePattern
     {
         public override Out1 Handle1(Context context, In1 in1)
         {
-            throw new System.NotImplementedException();
+            context.State = new ConcreteStateA();
+            return Out1.Gamma;
         }
 
         public override Out2 Handle2(Context context, In2 in2)
