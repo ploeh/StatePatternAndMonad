@@ -95,10 +95,11 @@ namespace Ploeh.Samples.StatePattern
             var in1 = In1.Alpha;
             var ctx = new Context(new ConcreteStateA());
 
-            var t =
-                in1.Request1().SelectMany(a =>
-                in1.Request1().Select(b => (a, b)))
-                .Run(ctx);
+            var s =
+                from a in in1.Request1()
+                from b in in1.Request1()
+                select (a, b);
+            var t = s.Run(ctx);
 
             Assert.Equal(Out1.Gamma, t.Value.a);
             Assert.Equal(Out1.Gamma, t.Value.b);

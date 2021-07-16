@@ -62,6 +62,14 @@ namespace Ploeh.Samples.StatePattern
             }
         }
 
+        public static IState<TState, T1> SelectMany<TState, T, U, T1>(
+            this IState<TState, T> source,
+            Func<T, IState<TState, U>> k,
+            Func<T, U, T1> s)
+        {
+            return source.SelectMany(x => k(x).Select(y => s(x, y)));
+        }
+
         public static IState<Context, Out1> Request1(this In1 in1)
         {
             return new DelegateState<Context, Out1>(ctx => ctx.Request1(in1));
