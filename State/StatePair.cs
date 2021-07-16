@@ -17,6 +17,31 @@ namespace Ploeh.Samples.StatePattern
         public T Value { get; }
         public TState State { get; }
 
+        public StatePair<TState1, T1> SelectBoth<TState1, T1>(
+            Func<T, T1> selectValue,
+            Func<TState, TState1> selectState)
+        {
+            return new StatePair<TState1, T1>(
+                selectValue(Value),
+                selectState(State));
+        }
+
+        public StatePair<TState1, T> SelectState<TState1>(
+            Func<TState, TState1> selectState)
+        {
+            return SelectBoth(x => x, selectState);
+        }
+
+        public StatePair<TState, T1> SelectValue<T1>(Func<T, T1> selectValue)
+        {
+            return SelectBoth(selectValue, s => s);
+        }
+
+        public StatePair<TState, T1> Select<T1>(Func<T, T1> selectValue)
+        {
+            return SelectValue(selectValue);
+        }
+
         public override bool Equals(object obj)
         {
             return obj is StatePair<TState, T> pair &&
