@@ -95,12 +95,14 @@ namespace Ploeh.Samples.StatePattern
             var in1 = In1.Alpha;
             var ctx = new Context(new ConcreteStateA());
 
-            var pairA = ctx.Request1(in1);
-            var pairB = pairA.State.Request1(in1);
+            var t =
+                in1.Request1().SelectMany(a =>
+                in1.Request1().Select(b => (a, b)))
+                .Run(ctx);
 
-            Assert.Equal(Out1.Gamma, pairA.Value);
-            Assert.Equal(Out1.Gamma, pairB.Value);
-            Assert.Equal(new ConcreteStateA(), pairB.State.State);
+            Assert.Equal(Out1.Gamma, t.Value.a);
+            Assert.Equal(Out1.Gamma, t.Value.b);
+            Assert.Equal(new ConcreteStateA(), t.State.State);
         }
 
         [Fact]
