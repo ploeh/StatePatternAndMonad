@@ -18,8 +18,8 @@ namespace Ploeh.Samples.StatePattern
 
         private class SelectState<TState, T, T1> : IState<TState, T1>
         {
-            private IState<TState, T> source;
-            private Func<T, T1> selector;
+            private readonly IState<TState, T> source;
+            private readonly Func<T, T1> selector;
 
             public SelectState(IState<TState, T> source, Func<T, T1> selector)
             {
@@ -45,8 +45,8 @@ namespace Ploeh.Samples.StatePattern
 
         private class SelectManyState<TState, T, T1> : IState<TState, T1>
         {
-            private IState<TState, T> source;
-            private Func<T, IState<TState, T1>> selector;
+            private readonly IState<TState, T> source;
+            private readonly Func<T, IState<TState, T1>> selector;
 
             public SelectManyState(IState<TState, T> source, Func<T, IState<TState, T1>> selector)
             {
@@ -70,29 +70,56 @@ namespace Ploeh.Samples.StatePattern
             return source.SelectMany(x => k(x).Select(y => s(x, y)));
         }
 
+        // MonadState
+        public static IState<TState, TState> Get<TState>()
+        {
+            return new GetState<TState>();
+        }
+
+        private class GetState<TState> : IState<TState, TState>
+        {
+            public StatePair<TState, TState> Run(TState state)
+            {
+                return new StatePair<TState, TState>(state, state);
+            }
+        }
+
+        public static IState<TState, Unit> Put<TState>(TState state)
+        {
+            return new PutState<TState>(state);
+        }
+
+        private class PutState<TState> : IState<TState, Unit>
+        {
+            private readonly TState state;
+
+            public PutState(TState state)
+            {
+                this.state = state;
+            }
+
+            public StatePair<TState, Unit> Run(TState _)
+            {
+                return new StatePair<TState, Unit>(Unit.Instance, state);
+            }
+        }
+
         public static IState<Context, Out1> Request1(this In1 in1)
         {
-            return new DelegateState<Context, Out1>(ctx => ctx.Request1(in1));
+            return
+                from ctx in Get<Context>()
+                let p = ctx.Request1(in1)
+                from _ in Put(p.State)
+                select p.Value;
         }
 
         public static IState<Context, Out2> Request2(this In2 in2)
         {
-            return new DelegateState<Context, Out2>(ctx => ctx.Request2(in2));
-        }
-
-        private class DelegateState<TState, T> : IState<TState, T>
-        {
-            private Func<TState, StatePair<TState, T>> imp;
-
-            public DelegateState(Func<TState, StatePair<TState, T>> imp)
-            {
-                this.imp = imp;
-            }
-
-            public StatePair<TState, T> Run(TState state)
-            {
-                return imp(state);
-            }
+            return
+                from ctx in Get<Context>()
+                let p = ctx.Request2(in2)
+                from _ in Put(p.State)
+                select p.Value;
         }
     }
 }
