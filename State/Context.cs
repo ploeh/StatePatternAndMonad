@@ -24,12 +24,14 @@ namespace Ploeh.Samples.StatePattern
         // Generalised methods
         public StatePair<Context, Out1> Request1(In1 in1)
         {
-            return in1.Request1S().Run(State).SelectState(s => new Context(s));
+            return in1.Request1S()
+                .SelectState(s => new Context(s), ctx => ctx.State).Run(this);
         }
 
         public StatePair<Context, Out2> Request2(In2 in2)
         {
-            return in2.Request2S().Run(State).SelectState(s => new Context(s));
+            return in2.Request2S()
+                .SelectState(s => new Context(s), ctx => ctx.State).Run(this);
         }
     }
 }
