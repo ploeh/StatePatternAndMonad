@@ -113,11 +113,31 @@ namespace Ploeh.Samples.StatePattern
                 select p.Value;
         }
 
+        public static IState<State, Out1> Request1S(this In1 in1)
+        {
+            return
+                from s in Get<State>()
+                let ctx = new Context(s)
+                let p = s.Handle1(ctx, in1)
+                from _ in Put(p.State)
+                select p.Value;
+        }
+
         public static IState<Context, Out2> Request2(this In2 in2)
         {
             return
                 from ctx in Get<Context>()
                 let p = ctx.Request2(in2)
+                from _ in Put(p.State)
+                select p.Value;
+        }
+
+        public static IState<State, Out2> Request2S(this In2 in2)
+        {
+            return
+                from s in Get<State>()
+                let ctx = new Context(s)
+                let p = s.Handle2(ctx, in2)
                 from _ in Put(p.State)
                 select p.Value;
         }
