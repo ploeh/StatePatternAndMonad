@@ -96,8 +96,8 @@ namespace Ploeh.Samples.StatePattern
             var csa = new ConcreteStateA();
 
             var s =
-                from a in in1.Request1S()
-                from b in in1.Request1S()
+                from a in in1.Request1()
+                from b in in1.Request1()
                 select (a, b);
             var t = s.Run(csa);
 
@@ -115,7 +115,7 @@ namespace Ploeh.Samples.StatePattern
 
             var s =
                 from a in in2.Request2S()
-                from b in in1.Request1S()
+                from b in in1.Request1()
                 select (a, b);
             var t = s.Run(csa);
 
