@@ -129,12 +129,6 @@ namespace Ploeh.Samples.StatePattern
                 select p.Value;
         }
 
-        public static IState<Context, Out2> Request2(this In2 in2)
-        {
-            return in2.Request2S()
-                .SelectState(s => new Context(s), ctx => ctx.State);
-        }
-
         public static IState<State, Out2> Request2S(this In2 in2)
         {
             return
