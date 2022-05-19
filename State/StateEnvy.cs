@@ -130,8 +130,7 @@ namespace Ploeh.Samples.StatePattern
         {
             return
                 from s in Get<State>()
-                let ctx = new Context(s)
-                let p = s.Handle1(ctx, in1)
+                let p = s.Handle1(in1)
                 from _ in Put(p.State)
                 select p.Value;
         }
@@ -146,8 +145,7 @@ namespace Ploeh.Samples.StatePattern
         {
             return
                 from s in Get<State>()
-                let ctx = new Context(s)
-                let p = s.Handle2(ctx, in2)
+                let p = s.Handle2(in2)
                 from _ in Put(p.State)
                 select p.Value;
         }
