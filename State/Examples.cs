@@ -23,8 +23,8 @@ namespace Ploeh.Samples.StatePattern
         public void Request1AToA()
         {
             var in1 = In1.Beta;
-            var ctx = new Context(new ConcreteStateA());
-            var actual = ctx.State.Handle1(in1).SelectState(s => new Context(s));
+            var s = new ConcreteStateA();
+            var actual = s.Handle1(in1).SelectState(s => new Context(s));
             Assert.Equal(Out1.Delta, actual.Value);
             Assert.Equal(new ConcreteStateA(), actual.State.State);
         }
