@@ -14,11 +14,5 @@ namespace Ploeh.Samples.StatePattern
         }
 
         public State State { get; }
-
-        // Generalised methods
-        public StatePair<Context, Out2> Request2(In2 in2)
-        {
-            return in2.Request2().Run(this);
-        }
     }
 }
