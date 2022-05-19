@@ -93,17 +93,17 @@ namespace Ploeh.Samples.StatePattern
         public void MultiUseExample1()
         {
             var in1 = In1.Alpha;
-            var ctx = new Context(new ConcreteStateA());
+            var csa = new ConcreteStateA();
 
             var s =
-                from a in in1.Request1()
-                from b in in1.Request1()
+                from a in in1.Request1S()
+                from b in in1.Request1S()
                 select (a, b);
-            var t = s.Run(ctx);
+            var t = s.Run(csa);
 
             Assert.Equal(Out1.Gamma, t.Value.a);
             Assert.Equal(Out1.Gamma, t.Value.b);
-            Assert.Equal(new ConcreteStateA(), t.State.State);
+            Assert.Equal(new ConcreteStateA(), t.State);
         }
 
         [Fact]
