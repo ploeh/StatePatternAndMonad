@@ -34,9 +34,9 @@ namespace Ploeh.Samples.StatePattern
         {
             var in2 = In2.Epsilon;
             var s = new ConcreteStateA();
-            var actual = s.Handle2(in2).SelectState(s => new Context(s));
+            var actual = s.Handle2(in2);
             Assert.Equal(Out2.Eta, actual.Value);
-            Assert.Equal(new ConcreteStateB(), actual.State.State);
+            Assert.Equal(new ConcreteStateB(), actual.State);
         }
 
         [Fact]
