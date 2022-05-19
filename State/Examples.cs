@@ -63,8 +63,8 @@ namespace Ploeh.Samples.StatePattern
         public void Request1BBeta()
         {
             var in1 = In1.Beta;
-            var ctx = new Context(new ConcreteStateB());
-            var actual = ctx.State.Handle1(in1).SelectState(s => new Context(s));
+            var s = new ConcreteStateB();
+            var actual = s.Handle1(in1).SelectState(s => new Context(s));
             Assert.Equal(Out1.Gamma, actual.Value);
             Assert.Equal(new ConcreteStateA(), actual.State.State);
         }
