@@ -111,17 +111,17 @@ namespace Ploeh.Samples.StatePattern
         {
             var in2 = In2.Epsilon;
             var in1 = In1.Beta;
-            var ctx = new Context(new ConcreteStateA());
+            var csa = new ConcreteStateA();
 
             var s =
-                from a in in2.Request2()
-                from b in in1.Request1()
+                from a in in2.Request2S()
+                from b in in1.Request1S()
                 select (a, b);
-            var t = s.Run(ctx);
+            var t = s.Run(csa);
 
             Assert.Equal(Out2.Eta, t.Value.a);
             Assert.Equal(Out1.Gamma, t.Value.b);
-            Assert.Equal(new ConcreteStateA(), t.State.State);
+            Assert.Equal(new ConcreteStateA(), t.State);
         }
     }
 }
