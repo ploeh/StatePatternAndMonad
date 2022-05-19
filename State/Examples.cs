@@ -64,9 +64,9 @@ namespace Ploeh.Samples.StatePattern
         {
             var in1 = In1.Beta;
             var s = new ConcreteStateB();
-            var actual = s.Handle1(in1).SelectState(s => new Context(s));
+            var actual = s.Handle1(in1);
             Assert.Equal(Out1.Gamma, actual.Value);
-            Assert.Equal(new ConcreteStateA(), actual.State.State);
+            Assert.Equal(new ConcreteStateA(), actual.State);
         }
 
         [Fact]
@@ -74,9 +74,9 @@ namespace Ploeh.Samples.StatePattern
         {
             var in2 = In2.Epsilon;
             var s = new ConcreteStateB();
-            var actual = s.Handle2(in2).SelectState(s => new Context(s));
+            var actual = s.Handle2(in2);
             Assert.Equal(Out2.Theta, actual.Value);
-            Assert.Equal(new ConcreteStateB(), actual.State.State);
+            Assert.Equal(new ConcreteStateB(), actual.State);
         }
 
         [Fact]
@@ -84,9 +84,9 @@ namespace Ploeh.Samples.StatePattern
         {
             var in2 = In2.Zeta;
             var s = new ConcreteStateB();
-            var actual = s.Handle2(in2).SelectState(s => new Context(s));
+            var actual = s.Handle2(in2);
             Assert.Equal(Out2.Theta, actual.Value);
-            Assert.Equal(new ConcreteStateB(), actual.State.State);
+            Assert.Equal(new ConcreteStateB(), actual.State);
         }
 
         [Fact]
